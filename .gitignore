@@ -1,0 +1,16 @@
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore MAMP logs and temp files
+logs/
+cache/
+tmp/
+*.log
+
+# Ignore database dumps
+*.sql
+
+# Ignore compiled or generated files
+node_modules/
+vendor/
