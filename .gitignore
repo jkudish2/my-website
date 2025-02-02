@@ -14,3 +14,11 @@ tmp/
 # Ignore compiled or generated files
 node_modules/
 vendor/
+
+# Ignore environment-specific configuration files
+config.php
+.env
+
+# Ignore IDE/editor settings
+.vscode/
+.idea/
