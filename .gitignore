@@ -16,7 +16,9 @@ node_modules/
 vendor/
 
 # Ignore environment-specific configuration files
-config.php
+/development/config.php
+/testing/config.php
+/production/config.php
 .env
 
 # Ignore IDE/editor settings
