@@ -1,42 +1,41 @@
 <?php
-require 'conf.php'; // Include your existing database connection
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
+// Database connection
+include 'config.php';
+
+// Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Sanitize and validate inputs
-    $username = isset($_POST['username']) ? trim($_POST['username']) : '';
-    $new_password = isset($_POST['new_password']) ? $_POST['new_password'] : '';
-    $confirm_password = isset($_POST['confirm_password']) ? $_POST['confirm_password'] : '';
-
-    // Ensure passwords match
+    $username = $_POST['username'];
+    $new_password = $_POST['new_password'];
+    $confirm_password = $_POST['confirm_password'];
+    
+    // Check if new password and confirm password match
     if ($new_password !== $confirm_password) {
-        echo "Passwords do not match.";
-        exit; // Stop the script from running further
-    }
-
-    // Hash the password for security
-    $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
-
-    // Update the password in the database
-    $sql = "UPDATE users SET password = ? WHERE username = ?";
-    $stmt = $conn->prepare($sql);
-
-    if ($stmt === false) {
-        // Handle SQL preparation error
-        echo "Error preparing statement: " . $conn->error;
-        exit;
-    }
-
-    $stmt->bind_param("ss", $hashed_password, $username);
-
-    // Execute the statement and check for success
-    if ($stmt->execute()) {
-        echo "Password reset successfully. <a href='login.php'>Login here</a>";
+        echo "Passwords do not match!";
+        header("Location: reset_password.html", true, 301);
     } else {
-        echo "Error updating password: " . $conn->error;
+        // Sanitize input to prevent SQL injection
+        $username = mysqli_real_escape_string($conn, $username);
+        $new_password = mysqli_real_escape_string($conn, $new_password);
+        
+        // Hash the new password
+        $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+        
+        // Update password in the database
+        $sql = "UPDATE users SET password='$hashed_password' WHERE username='$username'";
+        
+        if ($conn->query($sql) === TRUE) {
+            header("Location: login.html", true, 301);
+        } else {
+            echo "Error updating password: " . $conn->error;
+        }
     }
 
-    $stmt->close();
+    // Close the database connection
     $conn->close();
 }
 ?>
+
 

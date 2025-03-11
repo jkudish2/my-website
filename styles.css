@@ -1,33 +1,24 @@
+/* Global Styles */
 body {
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f4f4f4;
-}
-form {
-    background: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px 0px #aaa;
-}
-input, button {
-    display: block;
-    width: 100%;
-    margin: 10px 0;
-}
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f4f4f4;
+    background-color: #1E1E1E; /* Dark background */
+    color: #2E2EF2; /* Blue text */
+    margin: 0;
+    flex-direction: column; /* Stacks content vertically */
+    text-align: center;
 }
 
-.reset-container {
-    background: white;
+h2 {
+    color: #2E2EF2; /* Blue heading */
+}
+
+/* Form Container */
+form, .reset-container {
+    background: #1E1E1E;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -44,7 +35,7 @@ input {
 }
 
 button {
-    background: #28a745;
+    background: #2E2EF2; /* Blue button */
     color: white;
     padding: 10px;
     border: none;
@@ -54,10 +45,26 @@ button {
 }
 
 button:hover {
-    background: #218838;
+    background: #1e1ef2; /* Slightly darker blue on hover */
 }
 
+/* Error messages */
 .error {
     color: red;
     font-size: 14px;
+}
+
+/* Links */
+a {
+    color: #2E2EF2;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+/* Logo styling */
+.logo {
+    width: 190px;  /* Adjust the size of the logo */
+    margin-bottom: 20px; /* Space below the logo */
 }

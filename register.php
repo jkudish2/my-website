@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
     
     if ($conn->query($sql) === TRUE) {
-        echo "Registration successful!";
+        header("Location: login.html", true, 301);
     } else {
         echo "Error: " . $conn->error;
     }
