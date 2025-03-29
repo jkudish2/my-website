@@ -12,6 +12,4 @@ npm-debug.log
 .DS_Store
 Thumbs.db
 
-development/config.php
-testing/config.php
-production/config.php
+config.php
