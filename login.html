@@ -7,19 +7,21 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <img src="logo-transparent-png - no_words.png" alt="Logo" class="logo">
-    <form action="login.php" method="POST">
-        <h2>Login</h2>
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <button type="submit">Login</button>
-    </form>
-    <!-- Forgot Password and Sign Up Links -->
-    <div class="links">
-        <p><a href="reset_password.html">Forgot your password?</a></p>
-        <p><a href="register.html">Don't have an account? Sign Up</a></p>
+    <div class="form-container">
+        <img src="logo-transparent-png - no_words.png" alt="Logo" class="logo">
+        <form action="login.php" method="POST">
+            <h2>Login</h2>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Login</button>
+        </form>
+        <!-- Forgot Password and Sign Up Links -->
+        <div class="links">
+            <p><a href="verify_email.html">Forgot your password?</a></p>
+            <p><a href="register.html">Don't have an account? Sign Up</a></p>
+        </div>
     </div>
 </body>
 </html>

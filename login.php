@@ -24,6 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $row['password'])) {
             session_start(); // Start the session
             $_SESSION['username'] = $username; // Store the username in the session
+            $_SESSION['user_id'] = $row['id']; // Store the user_id in the session
             
             // Redirect to the home page
             header("Location: home.php");
