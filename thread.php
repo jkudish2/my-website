@@ -20,8 +20,8 @@ if (!$thread) {
     die("Thread not found.");
 }
 
-// Fetch comments for the thread
-$commentsQuery = "SELECT c.comment, c.created_at, u.username 
+// Fetch comments with avatars
+$commentsQuery = "SELECT c.comment, c.created_at, u.avatar 
                   FROM comments c 
                   JOIN users u ON c.user_id = u.id 
                   WHERE c.thread_id = ? 
@@ -50,17 +50,19 @@ $commentsResult = $stmt->get_result();
     <p><?php echo nl2br(htmlspecialchars($thread['description'])); ?></p>
     <p><small>Created on: <?php echo $thread['created_at']; ?></small></p>
 
-    <hr>
     <h3>Comments</h3>
     <div id="comments-section">
-        <?php while ($comment = $commentsResult->fetch_assoc()): ?>
-            <div class="comment">
-                <strong><?php echo htmlspecialchars($comment['username']); ?>:</strong>
-                <p><?php echo nl2br(htmlspecialchars($comment['comment'])); ?></p>
-                <small><?php echo $comment['created_at']; ?></small>
+    <?php while ($comment = $commentsResult->fetch_assoc()): ?>
+        <div class="comment">
+            <div class="comment-content">
+                <img src="<?php echo htmlspecialchars($comment['avatar']); ?>" alt="User Avatar" class="avatar">
+                <p class="comment-text"><?php echo nl2br(htmlspecialchars($comment['comment'])); ?></p>
             </div>
-        <?php endwhile; ?>
-    </div>
+            <small><?php echo $comment['created_at']; ?></small>
+        </div>
+
+    <?php endwhile; ?>
+</div>
 
     <?php if (isset($_SESSION['user_id'])): ?>
         <form id="comment-form">
@@ -92,19 +94,24 @@ $commentsResult = $stmt->get_result();
             xhr.send("thread_id=" + threadId + "&comment=" + encodeURIComponent(commentText));
         });
 
-        // Refresh comments in real time every 3 seconds
         setInterval(function () {
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "fetch_comments.php?thread_id=<?php echo $thread_id; ?>", true);
             xhr.onload = function () {
                 if (xhr.status == 200) {
-                    document.getElementById("comments-section").innerHTML = xhr.responseText;
+                    var commentsSection = document.getElementById("comments-section");
+                    var newComments = xhr.responseText;
+                    
+                    // Append new comments instead of replacing all
+                    commentsSection.innerHTML = newComments;
                 }
             };
             xhr.send();
         }, 3000);
+
     </script>
 </body>
 </html>
 
 <?php $conn->close(); ?>
+

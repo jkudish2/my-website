@@ -3,7 +3,7 @@ session_start();
 include 'config.php'; // Database connection file
 
 // Check if the user is logged in
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['user_id'])) {
     die("You must be logged in to create a thread.");
 }
 

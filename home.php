@@ -2,8 +2,8 @@
 session_start();
 include 'config.php'; // Database connection file
 
-$isLoggedIn = isset($_SESSION['username']);
-$username = $isLoggedIn ? $_SESSION['username'] : null;
+$isLoggedIn = isset($_SESSION['user_id']);
+$id = $isLoggedIn ? $_SESSION['user_id'] : null;
 
 // Fetch threads from database
 $sql = "SELECT * FROM threads ORDER BY created_at DESC limit 5";
@@ -17,104 +17,6 @@ $result = mysqli_query($conn, $sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        /* Style the search form */
-        .search-form {
-            display: flex;
-            justify-content: center; /* Centers the search bar horizontally */
-            align-items: center;
-            margin-top: 10px;
-        }
-
-        /* Style the search input field */
-        .search-form input {
-            padding: 8px;
-            width: 300px; /* Adjust width as needed */
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        /* Style the search button */
-        .search-form button {
-            padding: 8px 15px;
-            margin-left: 5px;
-            background-color: #2E2EF2;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        /* Make the top section sticky */
-        .home-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
-
-        /* Make the header (logo, welcome message, buttons) sticky */
-        .header-container {
-            position: sticky;
-            top: 0;
-            background-color: #1E1E1E; /* Match page background */
-            width: 100%;
-            padding: 10px 0;
-            text-align: center;
-            z-index: 1000; /* Ensure it stays above other content */
-        }
-
-        /* Ensure thread list is scrollable while keeping the header fixed */
-        .thread-list {
-            flex-grow: 1; /* Allow it to expand within available space */
-            min-height: 0; /* Helps with flexbox scrolling */
-            max-height: calc(100vh - 425px); /* Adjust to ensure full visibility */
-            overflow-y: auto; /* Enable scrolling */
-            padding-bottom: 100px; /* Prevent last thread from getting cut off */
-        }
-
-        .thread {
-            background-color: white;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .thread h3 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-
-        .thread p {
-            font-size: 1em;
-            margin-bottom: 10px;
-        }
-
-        .thread p small {
-            color: gray;
-        }
-
-        .thread-actions {
-            margin-top: 10px;
-        }
-
-        .thread-actions button {
-            padding: 5px 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .thread-actions button.dislike {
-            background-color: #f44336;
-        }
-
-        .thread-likes-dislikes {
-            margin-top: 10px;
-        }
-    </style>
 </head>
 <body>
     <div class="home-container">
