@@ -33,7 +33,7 @@ if ($commentsResult->num_rows > 0) {
                 <img src='" . htmlspecialchars($comment['avatar']) . "' alt='User Avatar' class='avatar'>
                 <p>" . nl2br(htmlspecialchars($comment['comment'])) . "</p>
                 <small>" . $formatted_date . "</small>
-              </div>";
+            </div>";
     }
 } else {
     echo "<p>No comments yet.</p>";

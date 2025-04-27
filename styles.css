@@ -1,9 +1,9 @@
 /* Global Styles */
 :root {
-    --primary-color: #2E2EF2;
+    --primary-color: #40B2FF;
     --secondary-color: #4CAF50;
     --background-color: #1E1E1E;
-    --button-hover: #1e1ef2;
+    --button-hover: #40B2FF;
     --border-color: #444;
     --light-gray: #ccc;
     --dark-gray: #2A2A2A;
@@ -14,14 +14,15 @@ body {
     display: flex;
     justify-content: center;  /* Center content horizontally */
     align-items: center;      /* Center content vertically */
-    height: 100vh;
     background-color: var(--background-color);
-    color: #2E2EF2;
+    color: #40B2FF;
     margin: 0;
     flex-direction: column;
     text-align: center;
-    overflow: hidden;
     padding: 20px;
+    overflow-y: auto; /* Allow vertical scrolling */
+    height: auto; /* Allow the page to extend */
+    min-height: 100vh; /* Ensure it fills the viewport */
 }
 
 .form-container {
@@ -63,33 +64,29 @@ form, .reset-container {
     text-align: center;
 }
 
-/* Threads Section */
 .home-container {
-    padding: 20px;
-    width: 100%;
-    margin-top: 20px;
-    flex: 1; /* Allow this section to grow and fill remaining space */
     display: flex;
     flex-direction: column;
-}
-
-/* Ensure thread list is scrollable while keeping the header fixed */
-.thread-list {
-    flex-grow: 1; /* Allow it to expand within available space */
-    min-height: 0; /* Helps with flexbox scrolling */
-    max-height: calc(100vh - 220px); /* Adjust to ensure full visibility */
-    overflow-y: auto; /* Enable scrolling */
-    padding-bottom: 100px; /* Prevent last thread from getting cut off */
-    padding-top: 100px;
+    align-items: center;  /* Horizontally centers content */
+    justify-content: center;  /* Vertically centers content */
+    padding: 20px;  /* Optional padding for spacing */
+    width: 100%;  /* Full width */
+    max-width: 1000px;  /* Limit the max width */
+    margin: 0 auto;  /* Centers the home-container */
 }
 
 /* Individual thread styling */
 .thread {
     background-color: white;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px; /* Reduced padding */
+    margin-bottom: 10px; /* Reduced space between threads */
+    border-radius: 6px; /* Slightly smaller border radius */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Reduced shadow for a lighter feel */
+    width: 80%; /* Ensures threads don’t stretch too wide */
+    max-width: 400px; /* Max width for better readability */
+    justify-content: center; /* Centers the search bar horizontally */
+    align-items: center;
+    margin-left: 20px;
 }
 
 .thread h3 {
@@ -120,6 +117,9 @@ form, .reset-container {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
+}
+.thread-actions button.join-button {
+    background-color: var(--primary-color); /* Red button for dislike */
 }
 
 .thread-actions button.dislike {
@@ -162,14 +162,14 @@ a:hover {
 /* Logo styling */
 .logo {
     width: 190px;  /* Adjust the size of the logo */
-    margin-bottom: 5px; /* Space below the logo */
+    margin-bottom: 2px; /* Space below the logo */
 }
 
 /* Comments Section */
 #comments-section {
     max-height: 400px; /* Adjust height as needed */
     overflow-y: auto; /* Enables vertical scrolling */
-    padding: 10px;
+    padding: 15px;
     border-radius: 5px;
     background: var(--dark-gray);
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
@@ -183,6 +183,10 @@ a:hover {
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
     border-bottom: 1px solid var(--border-color);
+    display: flex;               /* Use flexbox to align the avatar and comment side by side */
+    align-items: center;         /* Vertically align the avatar and text */
+    flex-direction: row;         /* Ensure items are aligned in a row */
+    gap: 10px;           
 }
 
 .comment-content {
@@ -215,11 +219,11 @@ a:hover {
 }
 
 /* Style the search form */
-.search-form {
+.search-form-home {
     display: flex;
     justify-content: center; /* Centers the search bar horizontally */
     align-items: center;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 /* Style the search input field */
@@ -265,7 +269,6 @@ a:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
     text-align: center;
-    z-index: 1000; /* Ensure it stays above other content */
 }
 
 /* Ensure thread list is scrollable while keeping the header fixed */
@@ -275,6 +278,10 @@ a:hover {
     max-height: calc(100vh - 490px); /* Adjust to ensure full visibility */
     overflow-y: auto; /* Enable scrolling */
     padding-bottom: 110px; /* Prevent last thread from getting cut off */
+    width: 80%; /* Ensures threads don’t stretch too wide */
+    max-width: 400px; /* Max width for better readability */
+    align-items: center;
+    justify-content: center;
 }
 
 /* Reset form styles */
@@ -316,4 +323,111 @@ button a {
     margin-top: 10px;
 }
 
+/* Navigation Bar */
+.navbar {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary-color);
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Home Button */
+.nav-left .home-button {
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.nav-left .home-button i {
+    margin-right: 5px;
+}
+
+/* Right Side (Login/Register/Logout) */
+.nav-right {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 8px 12px;
+    background-color: #555;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.nav-link:hover {
+    background-color: #777;
+}
+
+/* Center the sort button */
+.sort-button {
+    text-align: center; /* Align the content inside the div to the center */
+    margin-top: 20px;    /* Add space above the button */
+}
+
+.sort-button button {
+    padding: 10px 20px; /* Adjust button size */
+    font-size: 16px;     /* Adjust font size */
+    cursor: pointer;    /* Make the button look clickable */
+}
+.top-container {
+    padding-top: 20px; /* Moves the container down by 15px */
+}
+
+.search-form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* makes inner items stretch full width */
+    gap: 12px;
+    width: 100%;
+    max-width: 600px; /* adjust as needed */
+    margin: 20px 0;
+}
+
+.search-bar {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.search-bar input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.search-bar button {
+    padding: 8px 16px;
+    font-size: 16px;
+}
+
+.filter-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.filter-form select {
+    padding: 6px;
+    font-size: 16px;
+}
+
+.language-filter {
+    margin-top: 0.5rem;
+}
+.head-container {
+    display: flex;
+    flex-direction: row;
+}
 

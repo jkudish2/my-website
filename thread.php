@@ -1,6 +1,7 @@
 <?php
 session_start();
 include 'config.php'; // Database connection
+$isLoggedIn = isset($_SESSION['user_id']);
 
 if (!isset($_GET['id'])) {
     die("Thread ID not provided.");
@@ -39,30 +40,42 @@ $commentsResult = $stmt->get_result();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($thread['title']); ?></title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="navbar">
-        <a href="home.php">
-            <button class="home-button">Home</button>
-        </a>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="home.php" class="home-button">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+        <div class="nav-right">
+            <?php if ($isLoggedIn): ?>
+                <a href="logout.php" class="nav-link">Logout</a>
+            <?php else: ?>
+                <a href="login.html" class="nav-link">Login</a>
+                <a href="register.html" class="nav-link">Register</a>
+            <?php endif; ?>
+        </div>
+    </nav>
+    <div class="top-container">
+        <h2><?php echo htmlspecialchars($thread['title']); ?></h2>
+        <p><?php echo nl2br(htmlspecialchars($thread['description'])); ?></p>
+        <p><small>Created on: <?php echo $thread['created_at']; ?></small></p>
     </div>
-    <h2><?php echo htmlspecialchars($thread['title']); ?></h2>
-    <p><?php echo nl2br(htmlspecialchars($thread['description'])); ?></p>
-    <p><small>Created on: <?php echo $thread['created_at']; ?></small></p>
 
     <h3>Comments</h3>
     <div id="comments-section">
-    <?php while ($comment = $commentsResult->fetch_assoc()): ?>
-        <div class="comment">
-            <div class="comment-content">
-                <img src="<?php echo htmlspecialchars($comment['avatar']); ?>" alt="User Avatar" class="avatar">
-                <p class="comment-text"><?php echo nl2br(htmlspecialchars($comment['comment'])); ?></p>
+        <?php while ($comment = $commentsResult->fetch_assoc()): ?>
+            <div class="comment">
+                <div class="comment-content">
+                    <img src="<?php echo htmlspecialchars($comment['avatar']); ?>" alt="User Avatar" class="avatar">
+                    <p class="comment-text"><?php echo nl2br(htmlspecialchars($comment['comment'])); ?></p>
+                </div>
+                <small><?php echo date("F j, Y, g:i a", strtotime($comment['created_at'])); ?></small>
             </div>
-            <small><?php echo $comment['created_at']; ?></small>
-        </div>
-
-    <?php endwhile; ?>
-</div>
+        <?php endwhile; ?>
+    </div>
 
     <?php if (isset($_SESSION['user_id'])): ?>
         <form id="comment-form">
@@ -107,7 +120,7 @@ $commentsResult = $stmt->get_result();
                 }
             };
             xhr.send();
-        }, 3000);
+        }, 1);
 
     </script>
 </body>
